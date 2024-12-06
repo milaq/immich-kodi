@@ -57,6 +57,9 @@ def album(id):
         items[i][1].setProperty('MimeType', res[i]["originalMimeType"])
         items[i][1].setDateTime(
             datetime.fromisoformat(res[i]['exifInfo']['dateTimeOriginal'][:-5]).strftime('%Y-%m-%dT%H:%M:%SZ'))
+        items[i][1].setInfo('pictures', {'exif:resolution': ''})
+        if 'exifInfo' in res[i] and 'fileSizeInByte' in res[i]['exifInfo']:
+            items[i][1].setInfo('pictures', {'size': res[i]['exifInfo']['fileSizeInByte']})
     xbmcplugin.addDirectoryItems(HANDLE, items, len(items))
     xbmcplugin.addSortMethod(HANDLE, sortMethod=xbmcplugin.SORT_METHOD_DATE)
     xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)

@@ -43,6 +43,9 @@ def time(id, video):
         items[i][1].setProperty('MimeType', itemsR[i]["originalMimeType"])
         items[i][1].setDateTime(
             strftime_polyfill(datetime.fromisoformat(itemsR[i]['localDateTime'][:-5]), '%Y-%m-%dT00:00:00Z'))
+        items[i][1].setInfo('pictures', {'exif:resolution': ''})
+        if 'exifInfo' in res[i] and 'fileSizeInByte' in res[i]['exifInfo']:
+            items[i][1].setInfo('pictures', {'size': res[i]['exifInfo']['fileSizeInByte']})
     xbmcplugin.addDirectoryItems(HANDLE, items, len(items))
     xbmcplugin.addSortMethod(HANDLE, sortMethod=xbmcplugin.SORT_METHOD_DATE)
     xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
