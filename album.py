@@ -50,7 +50,7 @@ def album(id):
         (
             f'{RAW_SERVER_URL}/api/assets/{i["id"]}/original|x-api-key={API_KEY}',
             xbmcgui.ListItem(
-                strftime_polyfill(datetime.fromisoformat(i['localDateTime'][:-5]), datelong + " " + timestamp)), False)
+                strftime_polyfill(datetime.fromisoformat(i['fileCreatedAt'][:-5]), datelong + " " + timestamp)), False)
         for i in res]
     for i in range(len(res)):
         items[i][1].setArt({'thumb': getThumbUrl(res[i]["id"])})

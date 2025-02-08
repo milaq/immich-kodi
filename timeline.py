@@ -35,14 +35,14 @@ def time(id, video):
             continue
         items.append((get_playback(i),
                       xbmcgui.ListItem(
-                          strftime_polyfill(datetime.fromisoformat(i['localDateTime'][:-5]),
+                          strftime_polyfill(datetime.fromisoformat(i['fileCreatedAt'][:-5]),
                                             datelong + " " + timestamp)), False))
         itemsR.append(i)
     for i in range(len(items)):
         items[i][1].setArt({'thumb': getThumbUrl(itemsR[i]["id"])})
         items[i][1].setProperty('MimeType', itemsR[i]["originalMimeType"])
         items[i][1].setDateTime(
-            strftime_polyfill(datetime.fromisoformat(itemsR[i]['localDateTime'][:-5]), '%Y-%m-%dT00:00:00Z'))
+            strftime_polyfill(datetime.fromisoformat(itemsR[i]['fileCreatedAt'][:-5]), '%Y-%m-%dT00:00:00Z'))
         items[i][1].setInfo('pictures', {'exif:resolution': ''})
         if 'exifInfo' in res[i] and 'fileSizeInByte' in res[i]['exifInfo']:
             items[i][1].setInfo('pictures', {'size': res[i]['exifInfo']['fileSizeInByte']})

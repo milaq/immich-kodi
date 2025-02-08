@@ -42,5 +42,5 @@ def slideshow():
     for i in resp:
         playlist.add(f'{RAW_SERVER_URL}/api/assets/{i["id"]}/video/playback|x-api-key={API_KEY}',
                      xbmcgui.ListItem(
-                         strftime_polyfill(datetime.fromisoformat(i['localDateTime'][:-5]),
+                         strftime_polyfill(datetime.fromisoformat(i['fileCreatedAt'][:-5]),
                                            datelong + " " + timestamp)), False)
